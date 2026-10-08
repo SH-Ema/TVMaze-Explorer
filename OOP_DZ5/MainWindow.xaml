@@ -1,71 +1,207 @@
-﻿<Window x:Class="OOP_DZ5.MainWindow"
+<Window x:Class="OOP_DZ5.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Width="1000"
-        Height="600"
-        Title="TVMaze Browser">
-
-    <Grid Margin="12">
+        Title="TVMaze Explorer" Width="1180" Height="760" MinWidth="920" MinHeight="600"
+        Background="#111521" Foreground="#EEF0F7" FontFamily="Segoe UI" FontSize="14">
+    <Window.Resources>
+        <SolidColorBrush x:Key="MutedBrush" Color="#A5AEC3" />
+        <SolidColorBrush x:Key="AccentBrush" Color="#B6A1FF" />
+        <Style TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#EEF0F7" />
+        </Style>
+        <Style x:Key="PanelStyle" TargetType="Border">
+            <Setter Property="Background" Value="#1B2131" />
+            <Setter Property="BorderBrush" Value="#30384C" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="CornerRadius" Value="14" />
+            <Setter Property="Padding" Value="18" />
+        </Style>
+        <Style x:Key="HeadingStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="18" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Margin" Value="0,0,0,16" />
+        </Style>
+        <Style x:Key="EmptyStyle" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{StaticResource MutedBrush}" />
+            <Setter Property="TextWrapping" Value="Wrap" />
+            <Setter Property="TextAlignment" Value="Center" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Margin" Value="12" />
+            <Setter Property="IsHitTestVisible" Value="False" />
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="#7959CF" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Padding" Value="24,12" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="ButtonBorder" Background="{TemplateBinding Background}" CornerRadius="9"
+                                BorderBrush="#B6A1FF" BorderThickness="1" Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="ButtonBorder" Property="Background" Value="#8969DF" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="ButtonBorder" Property="Background" Value="#6344B4" />
+                            </Trigger>
+                            <Trigger Property="IsKeyboardFocused" Value="True">
+                                <Setter TargetName="ButtonBorder" Property="BorderBrush" Value="White" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="ListBox">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Foreground" Value="#EEF0F7" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled" />
+            <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
+            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+            <Setter Property="VirtualizingPanel.IsVirtualizing" Value="True" />
+        </Style>
+        <Style TargetType="ListBoxItem">
+            <Setter Property="Padding" Value="12" />
+            <Setter Property="Margin" Value="0,0,0,6" />
+            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <Border x:Name="ItemBorder" Background="Transparent" BorderBrush="Transparent"
+                                BorderThickness="1" CornerRadius="8" Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Stretch" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="ItemBorder" Property="Background" Value="#252D40" />
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="ItemBorder" Property="Background" Value="#352D50" />
+                                <Setter TargetName="ItemBorder" Property="BorderBrush" Value="#9275D9" />
+                            </Trigger>
+                            <Trigger Property="IsKeyboardFocusWithin" Value="True">
+                                <Setter TargetName="ItemBorder" Property="BorderBrush" Value="#B6A1FF" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <Grid Margin="28">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-
-        <StackPanel Orientation="Horizontal"
-                    VerticalAlignment="Top">
-            <TextBox x:Name="QueryTextBox"
-                     Width="280"
-                     Height="28"
-                     Margin="0,0,8,0" />
-
-            <Button Content="Search"
-                    Width="110"
-                    Height="28"
-                    Click="OnSearchClick" />
+        <StackPanel Margin="0,0,0,24">
+            <TextBlock Text="TVMaze Explorer" FontSize="30" FontWeight="SemiBold" />
+            <TextBlock Text="Discover shows. Explore seasons. Find your next episode."
+                       Foreground="{StaticResource MutedBrush}" Margin="0,6,0,0" />
         </StackPanel>
-
-        <Grid Grid.Row="1"
-              Margin="0,8,0,0">
+        <Grid Grid.Row="1" Margin="0,0,0,24">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <StackPanel>
+                <Label Content="Search shows" Target="{Binding ElementName=QueryTextBox}"
+                       Foreground="{StaticResource MutedBrush}" Padding="0,0,0,8" />
+                <Border Background="#1B2131" BorderBrush="#454F68" BorderThickness="1" CornerRadius="9" Padding="12,10">
+                    <TextBox x:Name="QueryTextBox" Background="Transparent" Foreground="#EEF0F7"
+                             CaretBrush="#B6A1FF" BorderThickness="0" FontSize="16"
+                             AutomationProperties.Name="Search shows" KeyDown="OnQueryKeyDown"
+                             ToolTip="Enter a show title and press Enter to search" />
+                </Border>
+            </StackPanel>
+            <Button Grid.Column="1" Content="Search" Click="OnSearchClick"
+                    VerticalAlignment="Bottom" Margin="12,0,0,0" />
+        </Grid>
+        <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="2*" />
-                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="1.35*" />
                 <ColumnDefinition Width="3*" />
             </Grid.ColumnDefinitions>
-
-            <GroupBox Header="Shows">
-                <ListBox x:Name="ShowsView"
-                         SelectionChanged="OnShowSelected" />
-            </GroupBox>
-
-            <GroupBox Grid.Column="1"
-                      Header="Seasons"
-                      Margin="6,0">
-                <ListBox x:Name="SeasonsView"
-                         SelectionChanged="OnSeasonSelected" />
-            </GroupBox>
-
-            <StackPanel Grid.Column="2"
-                        Margin="6,0">
-                <TextBlock x:Name="ShowTitleText"
-                           FontSize="18"
-                           FontWeight="Bold" />
-
-                <TextBlock x:Name="ShowInfoText"
-                           Margin="0,4,0,4" />
-
-                <ScrollViewer Height="130">
-                    <TextBlock x:Name="ShowSummaryText"
-                               TextWrapping="Wrap" />
-                </ScrollViewer>
-
-                <GroupBox Header="Episodes"
-                          Margin="0,10,0,0">
-                    <ListBox x:Name="EpisodesView" />
-                </GroupBox>
-            </StackPanel>
+            <Border Style="{StaticResource PanelStyle}" Margin="0,0,14,0">
+                <Grid>
+                    <Grid.RowDefinitions><RowDefinition Height="Auto" /><RowDefinition Height="*" /></Grid.RowDefinitions>
+                    <TextBlock Text="Shows" Style="{StaticResource HeadingStyle}" />
+                    <ListBox x:Name="ShowsView" Grid.Row="1" SelectionChanged="OnShowSelected" AutomationProperties.Name="Shows">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding name}" TextWrapping="Wrap" ToolTip="{Binding name}" />
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                    <TextBlock x:Name="ShowsEmptyText" Grid.Row="1" Text="Search for a show to get started."
+                               Style="{StaticResource EmptyStyle}" />
+                </Grid>
+            </Border>
+            <Border Grid.Column="1" Style="{StaticResource PanelStyle}" Margin="0,0,14,0">
+                <Grid>
+                    <Grid.RowDefinitions><RowDefinition Height="Auto" /><RowDefinition Height="*" /></Grid.RowDefinitions>
+                    <TextBlock Text="Seasons" Style="{StaticResource HeadingStyle}" />
+                    <ListBox x:Name="SeasonsView" Grid.Row="1" SelectionChanged="OnSeasonSelected" AutomationProperties.Name="Seasons">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate><TextBlock Text="{Binding SeasonNumber, StringFormat=Season {0}}" TextWrapping="Wrap" /></DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                    <TextBlock x:Name="SeasonsEmptyText" Grid.Row="1" Text="Select a show to explore its seasons."
+                               Style="{StaticResource EmptyStyle}" />
+                </Grid>
+            </Border>
+            <Border Grid.Column="2" Style="{StaticResource PanelStyle}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="2*" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="3*" />
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="Details" Style="{StaticResource HeadingStyle}" />
+                    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                        <StackPanel>
+                            <TextBlock x:Name="ShowTitleText" Text="Select a show" FontSize="22" FontWeight="SemiBold" TextWrapping="Wrap" />
+                            <TextBlock x:Name="ShowInfoText" Foreground="{StaticResource AccentBrush}" Margin="0,8,0,12" TextWrapping="Wrap" />
+                            <TextBlock x:Name="ShowSummaryText" Text="Show information will appear here."
+                                       Foreground="{StaticResource MutedBrush}" TextWrapping="Wrap" />
+                        </StackPanel>
+                    </ScrollViewer>
+                    <TextBlock Grid.Row="2" Text="Episodes" Style="{StaticResource HeadingStyle}" Margin="0,18,0,12" />
+                    <ListBox x:Name="EpisodesView" Grid.Row="3" AutomationProperties.Name="Episodes">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <TextBlock Text="{Binding name}" TextWrapping="Wrap" ToolTip="{Binding name}" />
+                                    <TextBlock Foreground="{StaticResource MutedBrush}" FontSize="12"
+                                               TextTrimming="CharacterEllipsis" Margin="0,4,0,0" ToolTip="{Binding}">
+                                        <Run Text="{Binding number, StringFormat=Episode {0}}" /><Run Text=" · " />
+                                        <Run Text="{Binding runtime, TargetNullValue=0}" /><Run Text=" min" />
+                                    </TextBlock>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                    <TextBlock x:Name="EpisodesEmptyText" Grid.Row="3" Text="Select a season to see its episodes."
+                               Style="{StaticResource EmptyStyle}" />
+                </Grid>
+            </Border>
+        </Grid>
+        <Grid Grid.Row="3" Margin="0,16,0,0">
+            <Grid.ColumnDefinitions><ColumnDefinition Width="Auto" /><ColumnDefinition Width="*" /></Grid.ColumnDefinitions>
+            <ProgressBar x:Name="LoadingIndicator" IsIndeterminate="True" Width="70" Height="4"
+                         Foreground="{StaticResource AccentBrush}" Background="#30384C" Visibility="Collapsed" Margin="0,0,12,0" />
+            <TextBlock x:Name="StatusText" Grid.Column="1" Text="Ready to explore."
+                       Foreground="{StaticResource MutedBrush}" TextTrimming="CharacterEllipsis"
+                       ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}" AutomationProperties.LiveSetting="Polite" />
         </Grid>
     </Grid>
 </Window>
-
-
-
