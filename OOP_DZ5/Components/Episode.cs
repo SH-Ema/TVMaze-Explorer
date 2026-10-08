@@ -10,7 +10,7 @@ namespace OOP_DZ5.Components
     public class Episode
     {
         public int id { get; set; }
-        public string name { get; set; }
+        public string name { get; set; } = string.Empty;
         public int season { get; set; }
         public int number { get; set; }
         public int? runtime { get; set; }
