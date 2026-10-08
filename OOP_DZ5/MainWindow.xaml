@@ -1,0 +1,71 @@
+﻿<Window x:Class="OOP_DZ5.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Width="1000"
+        Height="600"
+        Title="TVMaze Browser">
+
+    <Grid Margin="12">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal"
+                    VerticalAlignment="Top">
+            <TextBox x:Name="QueryTextBox"
+                     Width="280"
+                     Height="28"
+                     Margin="0,0,8,0" />
+
+            <Button Content="Search"
+                    Width="110"
+                    Height="28"
+                    Click="OnSearchClick" />
+        </StackPanel>
+
+        <Grid Grid.Row="1"
+              Margin="0,8,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="3*" />
+            </Grid.ColumnDefinitions>
+
+            <GroupBox Header="Shows">
+                <ListBox x:Name="ShowsView"
+                         SelectionChanged="OnShowSelected" />
+            </GroupBox>
+
+            <GroupBox Grid.Column="1"
+                      Header="Seasons"
+                      Margin="6,0">
+                <ListBox x:Name="SeasonsView"
+                         SelectionChanged="OnSeasonSelected" />
+            </GroupBox>
+
+            <StackPanel Grid.Column="2"
+                        Margin="6,0">
+                <TextBlock x:Name="ShowTitleText"
+                           FontSize="18"
+                           FontWeight="Bold" />
+
+                <TextBlock x:Name="ShowInfoText"
+                           Margin="0,4,0,4" />
+
+                <ScrollViewer Height="130">
+                    <TextBlock x:Name="ShowSummaryText"
+                               TextWrapping="Wrap" />
+                </ScrollViewer>
+
+                <GroupBox Header="Episodes"
+                          Margin="0,10,0,0">
+                    <ListBox x:Name="EpisodesView" />
+                </GroupBox>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>
+
+
+
