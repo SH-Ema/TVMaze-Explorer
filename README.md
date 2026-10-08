@@ -1,6 +1,6 @@
 # TVMaze Explorer
 
-TVMaze Explorer is a desktop app for searching TV shows and browsing their seasons and episodes using the TVMaze API. I started this project as an OOP university assignment as a third-year computer science student. I later updated the interface with a dark theme.
+TVMaze Explorer is a desktop application for searching TV shows and browsing their seasons and episodes using the TVMaze API. The project started as a university OOP assignment and was later improved with a redesigned interface and additional functionality.
 
 ## Main features
 
