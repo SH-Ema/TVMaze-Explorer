@@ -15,9 +15,4 @@ TVMaze Explorer is a desktop application for searching TV shows and browsing the
 
 C#, WPF, XAML, .NET 7, and the TVMaze API.
 
-## How to run
 
-1. On Windows, install Visual Studio 2022 with the **.NET desktop development** workload and the .NET 7 SDK.
-2. Download or clone this repository.
-3. Open `OOP_DZ5.sln` in Visual Studio and let it restore the NuGet packages.
-4. Press **F5** to run the app. You need an internet connection to load TVMaze data.
